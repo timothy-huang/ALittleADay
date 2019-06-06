@@ -2,7 +2,7 @@
   "name": "alittleaday",
   "version": "1.0.0",
   "description": "Habit tracker for small but steady improvements",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "server": "nodemon server"
