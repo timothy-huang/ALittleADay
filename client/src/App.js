@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import Navbar from './components/ui/Navbar';
-import Landing from './components/pages/Landing';
-import Login from './components/pages/Login';
-import Register from './components/pages/Register';
-import SkillsDisplay from './components/pages/SkillsDisplay';
-import ForumsDisplay from './components/pages/ForumsDisplay';
+import Landing from './components/layouts/Landing';
+import Login from './components/layouts/Login';
+import Register from './components/layouts/Register';
+import SkillsDisplay from './components/layouts/SkillsDisplay';
+import ForumsDisplay from './components/layouts/ForumsDisplay';
 
 const App = () => (
   <Router>
