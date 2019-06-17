@@ -11,16 +11,18 @@ import ForumsDisplay from './components/pages/ForumsDisplay';
 
 const App = () => (
   <Router>
-    <Fragment className="App">
+    <div className="wrapper">
       <Navbar />
-      <Route exact path="/" component={Landing} />
-      <Switch>
-        <Route exact path="/Login" component={Login} />
-        <Route exact path="/Register" component={Register} />
-        <Route exact path="/Skills" component={SkillsDisplay} />
-        <Route exact path="/Forums" component={ForumsDisplay} />
-      </Switch>
-    </Fragment>
+      <div className="content-container">
+        <Route exact path="/" component={Landing} />
+        <Switch>
+          <Route exact path="/Login" component={Login} />
+          <Route exact path="/Register" component={Register} />
+          <Route exact path="/Skills" component={SkillsDisplay} />
+          <Route exact path="/Forums" component={ForumsDisplay} />
+        </Switch>
+      </div>
+    </div>
   </Router>
 );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ const DisplayButtons = styled(Link)`
   text-decoration: none;
 `;
 
-const SkillsButton = styled(DisplayButtons)`
+const SkillsButtonActive = styled(DisplayButtons)`
   background: #00a3ff;
   color: #ffffff;
   border: 1px solid #008ede;
@@ -45,7 +45,23 @@ const SkillsButton = styled(DisplayButtons)`
   border-top-left-radius: 5px;
 `;
 
-const ForumsButton = styled(DisplayButtons)`
+const SkillsButtonInactive = styled(DisplayButtons)`
+  background: #f4f4f4;
+  color: #00a3ff;
+  border: 1px solid #cccccc;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+`;
+
+const ForumsButtonActive = styled(DisplayButtons)`
+  background: #00a3ff;
+  color: #ffffff;
+  border: 1px solid #008ede;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+`;
+
+const ForumsButtonInactive = styled(DisplayButtons)`
   background: #f4f4f4;
   color: #00a3ff;
   border: 1px solid #cccccc;
@@ -67,8 +83,9 @@ const SearchBarContainer = styled.div`
   height: 40px;
   border: 0.5px solid #c4c4c4;
   border-radius: 5px;
-  :hover, :focus {
-    background: #FFFFFF;
+  :hover,
+  :focus {
+    background: #ffffff;
     border-color: #00a3ff;
   }
 `;
@@ -120,6 +137,8 @@ const LoginButton = styled(AuthButtons)`
 `;
 
 const Navbar = () => {
+  const [skillsPage, setSkillsPage] = useState(true);
+
   return (
     <Wrapper>
       <One>
@@ -127,10 +146,27 @@ const Navbar = () => {
           <img src={NavbarLogo} alt="Logo" />
         </Link>
       </One>
-      <Two>
-        <SkillsButton to="/Skills">Skills</SkillsButton>
-        <ForumsButton to="/Forums">Forum</ForumsButton>
-      </Two>
+      {skillsPage ? (
+        <Two>
+          <SkillsButtonActive to="/Skills">Skills</SkillsButtonActive>
+          <ForumsButtonInactive
+            onClick={() => setSkillsPage(false)}
+            to="/Forums"
+          >
+            Forum
+          </ForumsButtonInactive>
+        </Two>
+      ) : (
+        <Two>
+          <SkillsButtonInactive
+            onClick={() => setSkillsPage(true)}
+            to="/Skills"
+          >
+            Skills
+          </SkillsButtonInactive>
+          <ForumsButtonActive to="/Forums">Forum</ForumsButtonActive>
+        </Two>
+      )}
       <Three>
         <SearchBarContainer>
           <SearchIconStyled src={SearchIcon} alt="Logo" />
