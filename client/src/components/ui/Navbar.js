@@ -99,6 +99,7 @@ const SearchBar = styled.input`
   flex: 1;
   background-color: transparent;
   font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
   margin-top: 8px;
   margin-bottom: 8px;
   margin-right: 16px;
@@ -124,6 +125,9 @@ const AuthButtons = styled(Link)`
   font-weight: bold;
   text-decoration: none;
   border: 2px solid #00a3ff;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 const SignUpButton = styled(AuthButtons)`
