@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+import Alert from '../ui/Alert';
 
 const Wrapper = styled.section`
   display: flex;
@@ -30,13 +35,14 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
+  margin-bottom: 16px;
   font-size: 18px;
   font-weight: bold;
   color: #3a3a3a;
 `;
 
 const Form = styled.form`
-  margin-top: 32px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `;
@@ -70,7 +76,7 @@ const FormSubmit = styled.input`
   }
 `;
 
-const Register = () => {
+const Register = ({ setAlert }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -98,6 +104,7 @@ const Register = () => {
           Welcome to <span style={{ color: '#00a3ff' }}>skillforum</span>
         </Title>
         <Subtitle>Create an account to get started</Subtitle>
+        <Alert />
         <Form onSubmit={e => onSubmit(e)}>
           <FormField
             type="text"
@@ -134,4 +141,11 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { setAlert }
+)(Register);

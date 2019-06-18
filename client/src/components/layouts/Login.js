@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Alert from '../ui/Alert';
+
 const Wrapper = styled.section`
   display: flex;
   margin-top: 16px;
@@ -95,6 +97,7 @@ const Login = () => {
       <Content>
         <Title>Welcome back</Title>
         <Subtitle>Log in to continue</Subtitle>
+        <Alert />
         <Form onSubmit={e => onSubmit(e)}>
           <FormField
             type="text"
