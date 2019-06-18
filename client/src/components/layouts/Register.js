@@ -120,7 +120,7 @@ const Register = ({ setAlert, register }) => {
             required
           />
           <FormField
-            type="text"
+            type="email"
             name="email"
             value={email}
             onChange={e => onChange(e)}
@@ -128,7 +128,7 @@ const Register = ({ setAlert, register }) => {
             required
           />
           <FormField
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={e => onChange(e)}
