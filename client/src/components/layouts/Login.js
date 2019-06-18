@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -54,7 +54,6 @@ const FormField = styled.input`
 
 const FormSubmit = styled.input`
   margin-top: 24px;
-  margin-bottom: 24px;
   padding: 8px;
   height: 40px;
   width: 128px;
@@ -72,17 +71,53 @@ const FormSubmit = styled.input`
 `;
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const { email, password } = formData;
+
+  const onChange = e =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <Wrapper>
       <LeftBanner />
       <Content>
         <Title>Welcome back</Title>
         <Subtitle>Log in to continue</Subtitle>
-        <Form>
-          <FormField type="text" name="email" placeholder="Email" />
-          <FormField type="text" name="password" placeholder="Password" />
-          <FormSubmit type="submit" value="Log in" />
+        <Form onSubmit={e => onSubmit(e)}>
+          <FormField
+            type="text"
+            name="email"
+            value={email}
+            onChange={e => onChange(e)}
+            placeholder="Email"
+            required
+          />
+          <FormField
+            type="text"
+            name="password"
+            value={password}
+            onChange={e => onChange(e)}
+            placeholder="Password"
+            required
+            minLength="6"
+          />
+          <FormSubmit type="submit" value="Login" />
         </Form>
+        <p>
+          Don't have an account yet? <Link to="/register">Sign up</Link>
+        </p>
       </Content>
     </Wrapper>
   );

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -53,7 +54,6 @@ const FormField = styled.input`
 
 const FormSubmit = styled.input`
   margin-top: 24px;
-  margin-bottom: 24px;
   padding: 8px;
   height: 40px;
   width: 128px;
@@ -71,6 +71,25 @@ const FormSubmit = styled.input`
 `;
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
+
+  const { username, email, password } = formData;
+
+  const onChange = e =>
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <Wrapper>
       <LeftBanner />
@@ -79,12 +98,37 @@ const Register = () => {
           Welcome to <span style={{ color: '#00a3ff' }}>skillforum</span>
         </Title>
         <Subtitle>Create an account to get started</Subtitle>
-        <Form>
-          <FormField type="text" name="username" placeholder="Username" />
-          <FormField type="text" name="email" placeholder="Email" />
-          <FormField type="text" name="password" placeholder="Password" />
+        <Form onSubmit={e => onSubmit(e)}>
+          <FormField
+            type="text"
+            name="username"
+            value={username}
+            onChange={e => onChange(e)}
+            placeholder="Username"
+            required
+          />
+          <FormField
+            type="text"
+            name="email"
+            value={email}
+            onChange={e => onChange(e)}
+            placeholder="Email"
+            required
+          />
+          <FormField
+            type="text"
+            name="password"
+            value={password}
+            onChange={e => onChange(e)}
+            placeholder="Password"
+            required
+            minLength="6"
+          />
           <FormSubmit type="submit" value="Sign up" />
         </Form>
+        <p>
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </Content>
     </Wrapper>
   );
