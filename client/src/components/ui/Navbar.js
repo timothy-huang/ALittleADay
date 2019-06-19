@@ -143,7 +143,7 @@ const LoginButton = styled(AuthButtons)`
   color: #00a3ff;
 `;
 
-const LogoutLink = styled.a`
+const LogoutLink = styled(Link)`
   text-decoration: none;
 `;
 
@@ -151,18 +151,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const [skillsPage, setSkillsPage] = useState(true);
 
   const authLinks = (
-    <Four>
-      <LogoutLink onClick={logout} href="#!">
+    <Fragment>
+      <LogoutLink onClick={logout} to="/">
         Logout
       </LogoutLink>
-    </Four>
+    </Fragment>
   );
 
   const guestLinks = (
-    <Four>
+    <Fragment>
       <LoginButton to="/login">Login</LoginButton>
       <SignUpButton to="/register">Sign Up</SignUpButton>
-    </Four>
+    </Fragment>
   );
 
   return (
@@ -199,9 +199,11 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <SearchBar type="text" placeholder="Search" />
         </SearchBarContainer>
       </Three>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+      <Four>
+        {!loading && (
+          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        )}
+      </Four>
     </Wrapper>
   );
 };

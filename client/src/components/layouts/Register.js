@@ -99,6 +99,12 @@ const Register = ({ register, isAuthenticated }) => {
       email,
       password
     });
+
+    setFormData({
+      username: '',
+      email: '',
+      password: ''
+    });
   };
 
   // Redirect if logged in

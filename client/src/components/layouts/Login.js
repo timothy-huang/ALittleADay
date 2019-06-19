@@ -94,6 +94,10 @@ const Login = ({ login, isAuthenticated }) => {
   const onSubmit = e => {
     e.preventDefault();
     login(email, password);
+    setFormData({
+      email: '',
+      password: ''
+    });
   };
 
   // Redirect if logged in
