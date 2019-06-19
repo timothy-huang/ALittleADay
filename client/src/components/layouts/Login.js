@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
+
 import styled from 'styled-components';
 
 import Alert from '../ui/Alert';
@@ -32,13 +36,14 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
+  margin-bottom: 16px;
   font-size: 18px;
   font-weight: bold;
   color: #3a3a3a;
 `;
 
 const Form = styled.form`
-  margin-top: 32px;
+  margin-top: 16px;
   display: flex;
   flex-direction: column;
 `;
@@ -72,7 +77,7 @@ const FormSubmit = styled.input`
   }
 `;
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -88,8 +93,13 @@ const Login = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(formData);
+    login(email, password);
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/skills" />;
+  }
 
   return (
     <Wrapper>
@@ -100,7 +110,7 @@ const Login = () => {
         <Alert />
         <Form onSubmit={e => onSubmit(e)}>
           <FormField
-            type="text"
+            type="email"
             name="email"
             value={email}
             onChange={e => onChange(e)}
@@ -108,7 +118,7 @@ const Login = () => {
             required
           />
           <FormField
-            type="text"
+            type="password"
             name="password"
             value={password}
             onChange={e => onChange(e)}
@@ -126,4 +136,16 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);

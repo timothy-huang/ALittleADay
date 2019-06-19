@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from '../../actions/auth';
 
 import NavbarLogo from '../../assets/img/NavbarLogo.svg';
 import SearchIcon from '../../assets/img/SearchIcon.svg';
@@ -140,8 +143,27 @@ const LoginButton = styled(AuthButtons)`
   color: #00a3ff;
 `;
 
-const Navbar = () => {
+const LogoutLink = styled.a`
+  text-decoration: none;
+`;
+
+const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const [skillsPage, setSkillsPage] = useState(true);
+
+  const authLinks = (
+    <Four>
+      <LogoutLink onClick={logout} href="#!">
+        Logout
+      </LogoutLink>
+    </Four>
+  );
+
+  const guestLinks = (
+    <Four>
+      <LoginButton to="/login">Login</LoginButton>
+      <SignUpButton to="/register">Sign Up</SignUpButton>
+    </Four>
+  );
 
   return (
     <Wrapper>
@@ -177,12 +199,23 @@ const Navbar = () => {
           <SearchBar type="text" placeholder="Search" />
         </SearchBarContainer>
       </Three>
-      <Four>
-        <LoginButton to="/login">Login</LoginButton>
-        <SignUpButton to="/register">Sign Up</SignUpButton>
-      </Four>
+      {!loading && (
+        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+      )}
     </Wrapper>
   );
 };
 
-export default Navbar;
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Navbar);
